@@ -2,22 +2,32 @@ import http from 'http';
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-import { port } from './config.json';
+import bodyParser from 'body-parser';
+
 const log = console.log;
 const app = express();
+import { port } from '../package.json';
 
-app.use(morgan('combined'));
 app.use(cors());
+app.use(morgan('combined'));
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
-log('Starting Node Express Application with Babel');
+log('Starting Mock Server');
 
-app.get('/', function (req, res) {
-  res.send('hello, world!')
+app.get('/api', function (req, res) {
+  res.send({response: 'hello, pm2 watch!'})
 });
+
+app.post('/api', (req, res) => {
+  log(req.body);
+  const { body:data } = req;
+  res.send({ response: 'OK', data });
+})
 
 // Not Found Routes
 app.all('/*', (req, res)=>{
-  res.status(404).send({message: 'Not authorized'})
+  res.status(401).send({message: 'Not authorized'})
 });
 
 
