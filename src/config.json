@@ -1,0 +1,4 @@
+{
+  "port": 7000,
+  "dbconn": "local.mongo.com/nodeExpress"
+}
