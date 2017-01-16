@@ -5,26 +5,21 @@ import expressValidator from 'express-validator';
 import morgan from 'morgan';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import passport from 'passport';
-import mongoose from 'mongoose';
-import connectMongo from 'connect-mongo';
+import compression from 'compression';
 
-const MongoStore = connectMongo(session);
-
-import api from './routes/api';
+import models from './models';
+import routes from './routes';
 import config from './config.json';
 
-const log = console.log;
 const app = express();
 const port = config.port || 3000;
 
-mongoose.connect(`mongodb://${config.dbconn}`);
 
+app.use(compression());
 app.use(session({
     secret: 'node',
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 app.use(cors());
 app.use(morgan('combined'));
@@ -46,19 +41,21 @@ app.use(expressValidator({
     };
   }
 }));
-app.use(passport.initialize());
-app.use(passport.session());
 
-log('Starting Mock Server');
+console.log('Starting Server...');
 
-app.use('/api', api);
+routes(app);
 
-// Not Found Routes
-app.all('/*', (req, res)=>{
-  res.status(401).send({message: 'Not authorized'})
+models.sequelize.sync({ }).then( () => {
+	
+	// Not Found Routes
+	app.all('/*', (req, res)=>{
+		res.status(401).send({message: 'Not authorized'})
+	});
+	
+	
+	const server = http.createServer(app);
+	
+	server.listen(port, () => console.log(`App is served on port ${port}`))
+
 });
-
-
-const server = http.createServer(app);
-
-server.listen(port, () => log(`App is served on port ${port}`))
