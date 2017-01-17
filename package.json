@@ -12,7 +12,8 @@
     "copy:config": "cp ./src/config.json ./dist/config.json",
     "postbuild": "publish.sh",
     "prestart": "npm-run-all build",
-    "start": "node dist/index"
+    "start": "node dist/index",
+    "seed": "babel-node src/seed/init"
   },
   "keywords": [
     "express",

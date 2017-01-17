@@ -18,7 +18,16 @@ const saveItem = (id, data ) => new Promise((resolve, reject) =>{
 })
 
 api.get('/', (req, res) => {
-	Items.findAll()
+	Items.findAll({ 
+    attributes: [
+    'id',
+    'short',
+    'cover',
+    'title',
+    'published',
+    'createdAt'
+    ] 
+  })
 		.then( items => res.json(items))
 		.catch( err => {
 			console.log(err);

@@ -9,9 +9,18 @@ export default (sequelize, DataTypes) => {
 				type: DataTypes.STRING,
 				allowNull: false,
 			},
+			cover: {
+				type: DataTypes.STRING,
+				allowNull: false,
+			},
 			editor: {
 				type: DataTypes.JSON,
 				allowNull: false,
+			},
+			published: {
+				type: DataTypes.BOOLEAN,
+				allowNull: false,
+				defaultValue: false
 			},
 		},
 
