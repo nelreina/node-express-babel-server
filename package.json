@@ -28,6 +28,7 @@
     "express": "^4.14.0",
     "express-session": "^1.14.1",
     "express-validator": "^2.20.10",
+    "json-2-csv": "^2.1.2",
     "lodash": "^4.16.4",
     "moment": "^2.15.1",
     "morgan": "^1.7.0",
