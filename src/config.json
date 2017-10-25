@@ -1,11 +1,11 @@
 {
-  "port": 7001,
-  "dbconn": 	{
-			"database": "editor",
-			"username": "postgres",
-			"password": "postgres",
-			"dialect": "postgres",
-			"host": "192.16.22.56",
-			"logging": false
-		}
+  "port": 7000,
+  "dbconn": {
+    "database": "editor",
+    "username": "postgres",
+    "password": "postgres",
+    "dialect": "postgres",
+    "host": "192.16.22.56",
+    "logging": false
+  }
 }
